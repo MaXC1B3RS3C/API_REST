@@ -51,6 +51,24 @@ app.get("/api/user/:id", (req, res, next) => {
         }
       });
 });
+
+//MATEIX ENDPOINT PARAMETRIZAT Y NO VULNERABLE A SQL-INJECTION
+//app.get("/api/user/:id", (req, res, next) => {
+    // METODE NO SEGUR var sql = "select * from user where id = " + req.params.id
+    //SQLI NO VULNERABLE
+    //var sql = "select * from user where id = ?"
+    //var params=[req.params.id]
+    //db.get(sql, params (err, row) => {
+    //    if (err) {
+    //      res.status(400).json({"error":err.message});
+    //    }else{
+    //       res.json({
+    //            "message":"success",
+    //            "data":row
+    //       })
+    //    }
+    //  });
+//});
 // body-parser endpoint
 app.post("/api/user/", (req, res, next) => {
     var errors=[]

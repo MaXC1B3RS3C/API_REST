@@ -10,11 +10,21 @@
   "author": "Maxim Sanchez Porta",
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "body-parser": "^1.19.2",
     "express": "^4.17.3",
     "md5": "^2.3.0",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaXC1B3RS3C/API_REST.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/MaXC1B3RS3C/API_REST/issues"
+  },
+  "homepage": "https://github.com/MaXC1B3RS3C/API_REST#readme"
 }
