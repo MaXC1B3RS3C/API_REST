@@ -134,10 +134,9 @@ app.patch("/api/user/:id", (req, res, next) => {
     });
 })
 //Eliminar un usuari per ID -  EJERCICI 6
-// id - endpoint - Eliminar un usuari per id
+// id - endpoint - Eliminar un usuari per id (MEUA)
 app.get("/api/user/delete/:id", (req, res, next) => {
-    var params=[req.params.id]
-    var sql = "delete from user where id = ?"
+    var sql = "delete from user where id = " + req.params.id
     db.get(sql, (err, row) => {
         if (err) {
           res.status(400).json({"error":err.message});
@@ -149,7 +148,7 @@ app.get("/api/user/delete/:id", (req, res, next) => {
         }
       });
 });
-
+//SI PARAMETRITZEM EL MEU ENDPOINT ANTERIOR SERÍA SEGURA A SQL-INJECTION
 //> SOLUCIÓ DE CLASE AMB EXPRESS de endpoint app.delete
 //app.delete("/api/user/:id"),(req,res,next)=>{
 //       db.run(
