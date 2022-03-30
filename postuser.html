@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Insertar usuari</title>
 </head>    
 <body>
@@ -11,8 +12,18 @@
     <fieldset>
         <legend>Dades</legend>
         <form action="http://localhost:9000/api/user" method="post">
-            <label for="name">Nom</label>
-            <input type="text" name="name" id="name">
+            <div>
+                <label for="name">Nom</label>
+                <input type="text" name="name" id="name" placeholder="Introdueix el teu nom"></div>
+            <div>
+                <label for="email">Correu</label>
+                <input type="email" name="email" id="email" placeholder="Introdueix el teu correu">
+            </div>
+            <div>
+                <label for="password">Contrasenya</label>
+                <input type="password" name="password" id="password" placeholder="Introdueix la Contrasenya">
+            </div>
+            <div><input type="submit"  value="enviar"></input></div>
         </form>
     </fieldset>
 </body>
