@@ -67,7 +67,9 @@ app.post("/api/user/", (req, res, next) => {
     var data = {
         name: req.body.name,
         email: req.body.email,
-        password : req.body.password
+        //password : req.body.password
+        //Actulitze el metode md5 de password
+        password : md5(req.body.password)
     }
     var sql ='INSERT INTO user (name, email, password) VALUES (?,?,?)'
     var params =[data.name, data.email, data.password]
