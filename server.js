@@ -136,7 +136,8 @@ app.patch("/api/user/:id", (req, res, next) => {
 //Eliminar un usuari per ID -  EJERCICI 6
 // id - endpoint - Eliminar un usuari per id
 app.get("/api/user/delete/:id", (req, res, next) => {
-    var sql = "delete from user where id = " + req.params.id
+    var params=[req.params.id]
+    var sql = "delete from user where id = ?"
     db.get(sql, (err, row) => {
         if (err) {
           res.status(400).json({"error":err.message});
@@ -148,7 +149,24 @@ app.get("/api/user/delete/:id", (req, res, next) => {
         }
       });
 });
-// Default response for any other request
+
+//> SOLUCIÓ DE CLASE AMB EXPRESS de endpoint app.delete
+//app.delete("/api/user/:id"),(req,res,next)=>{
+//       db.run(
+//        'DELETE FROM user WHERE id = ?',
+//        req.params.id,
+//        function (err, result) {
+//            if (err){
+//                res.status(400).json({"error": res.message})
+//                return;
+//            }
+//            res.json({
+//                message: "success",
+//                data: data,
+//                changes: this.changes
+//            })
+//    });
+//};
 app.use(function (req, res) {
     res.status(404).json({ "error": "Invalid endpoint" });
 });
