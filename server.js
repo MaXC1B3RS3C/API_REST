@@ -109,8 +109,21 @@ app.patch("/api/user/:id", (req, res, next) => {
             })
     });
 })
-//Eliminar un usuari per ID - CREAR ENDPOINT EJERCICI 6
-
+//Eliminar un usuari per ID -  EJERCICI 6
+// id - endpoint - Eliminar un usuari per id
+app.get("/api/user/delete/:id", (req, res, next) => {
+    var sql = "delete from user where id = " + req.params.id
+    db.get(sql, (err, row) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+        }else{
+            res.json({
+                "message":"success",
+                "data":row
+            })
+        }
+      });
+});
 // Default response for any other request
 app.use(function (req, res) {
     res.status(404).json({ "error": "Invalid endpoint" });
