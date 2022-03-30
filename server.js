@@ -3,6 +3,9 @@ var express = require("express")
 var app = express()
 var db = require("./database.js")
 
+//importar md5
+var md5 = require("md5")
+
 // body-parser settings
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -65,6 +68,7 @@ app.get("/api/user/:id", (req, res, next) => {
     //       res.json({
     //            "message":"success",
     //            "data":row
+    //            "id"
     //       })
     //    }
     //  });
