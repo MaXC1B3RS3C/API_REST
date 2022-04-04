@@ -2,9 +2,13 @@ function validateForm(){
     console.log("Comprovant el formulari...");
     if(document.getElementById('name').value != '' &&
         document.getElementById('email').value != '' &&
-        document.getElementById('password').value != ''){
-            return true
+        document.getElementById('password').value != '') {
+        if (document.getElementById('password').value == document.getElementById('password').value){
+            alert('Les contrasenyes no coincideixen')
+            return false
         }
+        return true
+    }
     else{
         alert('Has d\'omplir tots els camps')
         return false
