@@ -3,7 +3,7 @@ function validateForm(){
     if(document.getElementById('name').value != '' &&
         document.getElementById('email').value != '' &&
         document.getElementById('password').value != '') {
-        if (document.getElementById('password').value == document.getElementById('password').value){
+        if (document.getElementById('password').value != document.getElementById('password2').value){
             alert('Les contrasenyes no coincideixen')
             return false
         }
