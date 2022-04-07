@@ -1,9 +1,24 @@
 // Create express app
-var express = require("express")
-var app = express()
 var db = require("./database.js")
+const express = require('express');
 
+const app = express();
+const https = require('https');
+const fs = require('fs');
+
+// Vax a afegir un path de un fitxer html per a afegir el formulari que es troba en la part del client.
+const path = require('path')
+
+// Aqui añado la parte del ciente
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/postuser.html'))
+})
+
+//  key: fs.readFileSync("certs/localhost+2-key.pem"),
+//  cert: fs.readFileSync("certs/localhost+2.pem")
 //importar md5
+
 var md5 = require("md5")
 
 // body-parser settings
@@ -12,11 +27,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Server port
-var HTTP_PORT = 9000 
+var SERVER_PORT = 9000     
 // Start server
-app.listen(HTTP_PORT, () => {
-    console.log("Servidor escoltant a l'adreça http://localhost:%PORT%".replace("%PORT%",HTTP_PORT))
+
+//Para generar las claves en powershell
+const server = https.createServer({
+    key: fs.readFileSync('./certs/localhost+2-key.pem'), // path to localhost+2-key.pem
+    cert: fs.readFileSync('./certs/localhost+2.pem'), // path to localhost+2.pem
+    requestCert: false,
+    rejectUnauthorized: false,
+}, app).listen(SERVER_PORT, function(){
+  console.log("Successfully started https server on port "+SERVER_PORT);
 });
+
+
 // Root endpoint
 app.get("/", (req, res, next) => {
     res.json({"message":"Ok"})
