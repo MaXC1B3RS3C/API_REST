@@ -37,7 +37,7 @@ const server = https.createServer({
     requestCert: false,
     rejectUnauthorized: false,
 }, app).listen(SERVER_PORT, function(){
-  console.log("Successfully started https server on port "+SERVER_PORT);
+    console.log("Servidor escoltant a l'adreça https://localhost:%PORT%".replace("%PORT%",SERVER_PORT))
 });
 
 
