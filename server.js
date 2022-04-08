@@ -6,15 +6,6 @@ const app = express();
 const https = require('https');
 const fs = require('fs');
 
-// Vax a afegir un path de un fitxer html per a afegir el formulari que es troba en la part del client.
-const path = require('path')
-
-// Aqui añado la parte del ciente
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/postuser.html'))
-})
-
 //  key: fs.readFileSync("certs/localhost+2-key.pem"),
 //  cert: fs.readFileSync("certs/localhost+2.pem")
 //importar md5
@@ -27,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Server port
-var SERVER_PORT = 9000     
+var HTTP_PORT = 9000     
 // Start server
 
 //Para generar las claves en powershell
@@ -36,17 +27,22 @@ const server = https.createServer({
     cert: fs.readFileSync('./certs/localhost+2.pem'), // path to localhost+2.pem
     requestCert: false,
     rejectUnauthorized: false,
-}, app).listen(SERVER_PORT, function(){
-    console.log("Servidor escoltant a l'adreça https://localhost:%PORT%".replace("%PORT%",SERVER_PORT))
+}, app).listen(HTTP_PORT, function(){
+    console.log("Servidor escoltant a l'adreça https://localhost:%PORT%".replace("%PORT%",HTTP_PORT))
 });
+// Vax a afegir un path de un fitxer html per a afegir el formulari que es troba en la part del client.
+const path = require('path')
 
+// Aqui añado la parte del ciente
+
+app.get('/', (req, res,next) => {
+    res.sendFile(path.join(__dirname, 'client/postuser.html'))
+})
 
 // Root endpoint
-app.get("/", (req, res, next) => {
-    res.json({"message":"Ok"})
-});
-
-
+//app.get("/", (req, res, next) => {
+//    res.json({"message":"Ok"})
+//});
 // Insert here other API endpoints
 
 //Users endpoint - Obtindre llista d'usuaris
@@ -193,3 +189,8 @@ app.get("/api/user/delete/:id", (req, res, next) => {
 app.use(function (req, res) {
     res.status(404).json({ "error": "Invalid endpoint" });
 });
+
+
+
+
+

@@ -1,3 +1,4 @@
+
 function validateForm(){
     console.log("Comprovant el formulari...");
     if(document.getElementById('name').value != '' &&
