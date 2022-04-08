@@ -33,16 +33,17 @@ const server = https.createServer({
 // Vax a afegir un path de un fitxer html per a afegir el formulari que es troba en la part del client.
 const path = require('path')
 
-// Aqui añado la parte del ciente
+// Root endpoint
+app.get("/", (req, res, next) => {
+    res.json({"message":"Ok"})
+});
 
-app.get('/', (req, res,next) => {
-    res.sendFile(path.join(__dirname, 'client/postuser.html'))
+// Aqui añado la parte del formulario del cliente
+
+app.get('/form', (req, res,next) => {
+    res.sendFile(path.join(__dirname, 'client/postuser.html'))    
 })
 
-// Root endpoint
-//app.get("/", (req, res, next) => {
-//    res.json({"message":"Ok"})
-//});
 // Insert here other API endpoints
 
 //Users endpoint - Obtindre llista d'usuaris
