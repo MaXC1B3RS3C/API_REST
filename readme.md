@@ -14,9 +14,6 @@ npm install nodemon md5 express sqlite3 body-parser https
 
 npm install --save-dev nodemon
 
-#solventar errores de seguridad o actualizar el paquete node-gyp de sqlite3
-
-npm install -g node-gyp
 
 #instalar Chocolatey en una terminal powershell administrador
 
