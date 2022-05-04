@@ -41,7 +41,7 @@ app.get("/", (req, res, next) => {
 // Aqui añado la parte del formulario del cliente
 
 app.get('/form', (req, res,next) => {
-    res.sendFile(path.join(__dirname, 'client/postuser.html'))    
+    res.sendFile(path.join(__dirname, './client/postuser.html'))    
 })
 
 // Insert here other API endpoints
@@ -94,7 +94,7 @@ app.get("/api/user/:id", (req, res, next) => {
     //    }
     //  });
 //});
-// body-parser endpoint
+// body-parser endpoint - endpoint de creació de usuari
 app.post("/api/user/", (req, res, next) => {
     var errors=[]
     if (!req.body.password){

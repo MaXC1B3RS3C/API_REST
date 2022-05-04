@@ -16,20 +16,20 @@
         <form action="https://localhost:9000/api/user" method="post" onsubmit="validateForm()" name="user_form">
             <div>
                 <label for="name">Nom:</label>
-                <input type="text" name="name" id="name" placeholder="Introdueix el teu nom"></div>
+                <input type="text" name="name" id="name" placeholder="Introdueix el teu nom" required></div>
             <div>
                 <label for="email">Correu:</label>
-                <input type="email" name="email" id="email" placeholder="Introdueix el teu correu">
+                <input type="email" name="email" id="email" placeholder="Introdueix el teu correu" required>
             </div>
             <div>
                 <label for="password">Contrasenya:</label>
-                <input type="password" name="password" id="password" placeholder="Introdueix la Contrasenya">
+                <input type="password" name="password" id="password" placeholder="Introdueix la Contrasenya" required>
             </div>
             <div>
                 <label for="password2">Confirma contrasenya:</label>
-                <input type="password" name="password2" id="password2" placeholder="Confirma la contrasenya:">
+                <input type="password" name="password2" id="password2" placeholder="Confirma la contrasenya:" required>
             </div>
-            <div><input type="submit"  value="enviar" onsubmit="validationevent"></input></div>
+            <div><input type="submit"  value="enviar" onsubmit="validationEvent()"></input></div>
         </form>
     </fieldset>
 </body>
