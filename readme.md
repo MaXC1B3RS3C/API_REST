@@ -4,7 +4,7 @@ npm init -y
 
 #instalar paquete nodemon md5 express sqlite3 body-parser https jsonwebtoken cookie-parser y dotenv
 
-npm install nodemon md5 express sqlite3 body-parser https jsonwebtoken cookie-parser dotenv
+npm install nodemon md5 express sqlite3 body-parser https jsonwebtoken cookie-parser dotenv 
 
 #adicional a nodemon
 
