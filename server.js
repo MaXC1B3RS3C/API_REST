@@ -92,8 +92,8 @@ app.post("/login", (req, res) => {
 		  "status": false,
 		  "message": "El correo es érroneo."
 		});
-	  }    let user = rows[0];
-	  db.close();
+	  }    
+	  let user = rows[0];
 
 	  let authenticated = bcrypt.compareSync(req.body.password, user.password);
   
