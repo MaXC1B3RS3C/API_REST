@@ -12,6 +12,11 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 //importar md5
 var md5 = require("md5")
+const bcrypt = require('bcryptjs')
+
+function bcrypthashing(password) {
+	return bcrypt.hashSync(password, 10);
+}
 // body-parser settings
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({
@@ -75,29 +80,45 @@ app.post("/login", (req, res) => {
 		//Actualizo el metodo md5 de las contraseñas (falta incorporar bcrypt)
 		password: req.body.password
 	}
-	var sql = "select * from user where name=? AND email = ? AND password = ? LIMIT 1"
 	var params = [data.name, data.email, data.password]
-	const hashed=md5(data.password)
-	db.get('select * from user where name=?', params[0], function(err, row) {
-		if (!row) return res.send("No se ha encontrado el usuario");
-		if(err) return res.send("Error al iniciar sesión");
-		db.get('select * from user where name=? AND email = ? AND password = ? LIMIT 1', params[0], params[1],hashed, function(err, row) {
-		  if (!row) return res.send("Las credenciales no coinciden.");
-		  if(err) return res.send("Error al iniciar sesión");
-		  const token = jwt.sign({ id: 1, role: "ADMIN" }, jwtsecret);
-			return res
-			.cookie("access_token", token, {
-			  httpOnly: true,
-			  secure: process.env.NODE_ENV === "production",
-			})
-			.status(200)
-			.redirect('/content')
+	let sql = `SELECT * from user where email='${req.body.email}'`;
+
+	db.all(sql, [], (err, rows) => {
+	  if (err) {
+		res.send("Error al iniciar sesión")
+	  }
+  
+  
+	  if (rows.length == 0) {
+		return res.json({
+		  "status": false,
+		  "message": "El correo es érroneo."
 		});
+	  }    let user = rows[0];
+	  db.close();
 
+	  let authenticated = bcrypt.compareSync(req.body.password, user.password);
+  
+	  delete user.password;
+  
+	  if (authenticated) {
 		
-	});
-});
+		const token = jwt.sign({ id: 1, role: "ADMIN" }, jwtsecret);
+		return res
+		.cookie("access_token", token, {
+		  httpOnly: true,
+		  secure: process.env.NODE_ENV === "production",
+		})
+		.status(200)
+		.redirect('/content')
 
+	  }
+  
+	  return res.send("Contraseña erronea vuelva a intentarlo.");
+	});
+  
+  });
+  
 
 // Endpoint de logout (destroy a cookie)
 app.get("/logout", auth, (req, res) => {
@@ -184,7 +205,7 @@ app.post("/api/user/", (req, res, next) => {
 		email: req.body.email,
 		//password : req.body.password
 		//Actulitze el metode md5 de password
-		password: md5(req.body.password)
+		password: bcrypthashing(req.body.password).toString('hex')
 	}
 	var sql = 'INSERT INTO user (name, email, password) VALUES (?,?,?)'
 	var params = [data.name, data.email, data.password]
@@ -207,7 +228,7 @@ app.patch("/api/user/:id", auth, (req, res, next) => {
 	var data = {
 		name: req.body.name,
 		email: req.body.email,
-		password: req.body.password ? md5(req.body.password) : null
+		password: req.body.password ? bcrypthashing(req.body.password).toString('hex') : null
 	}
 	db.run(
 		`UPDATE user set 
