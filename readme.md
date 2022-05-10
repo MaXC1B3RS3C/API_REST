@@ -34,4 +34,5 @@ npm start run
 https://obfuscator.io/
 
 #auditar problemas de seguridad
+
 npm audit fix
