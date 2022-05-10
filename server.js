@@ -11,10 +11,6 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 const bcrypt = require('bcryptjs')
-
-function bcrypthashing(password) {
-	return bcrypt.hashSync(password, 10);
-}
 // body-parser settings
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({
@@ -203,7 +199,7 @@ app.post("/api/user/", (req, res, next) => {
 		email: req.body.email,
 		//password : req.body.password
 		//Actulitze el metode md5 de password
-		password: bcrypthashing(req.body.password).toString('hex')
+		password: db.bcrypthashing(req.body.password).toString('hex')
 	}
 	var sql = 'INSERT INTO user (name, email, password) VALUES (?,?,?)'
 	var params = [data.name, data.email, data.password]
@@ -226,7 +222,7 @@ app.patch("/api/user/:id", auth, (req, res, next) => {
 	var data = {
 		name: req.body.name,
 		email: req.body.email,
-		password: req.body.password ? bcrypthashing(req.body.password).toString('hex') : null
+		password: req.body.password ? db.bcrypthashing(req.body.password).toString('hex') : null
 	}
 	db.run(
 		`UPDATE user set 
